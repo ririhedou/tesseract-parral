@@ -34,7 +34,7 @@ void work_tesseract(char* img)
 
 }
 
-// /home/ketian/tmp/  idx=118
+///home/ketian/tmp/  idx=118
 void work_on_idx_mobile(int idx, char* dir)
 {
       char cmd[2056];
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 {
 
     //char img[] = "
-      /home/ketian/tmp/40_mobile/your-answers-here.net..screen.44.png";
+    //home/ketian/tmp/40_mobile/your-answers-here.net..screen.44.png";
     if (argc < 2) {
         /* no argument */
         /* give error message and exit */
