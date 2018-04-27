@@ -42,7 +42,7 @@ void work_on_idx_web(int idx, char* dir)
       FILE *pf;
       snprintf(cmd, 2056, "find %s%d -type f -name \"*.png\"", dir, idx);
 
-      //printf("cmd is %s\n",cmd);
+      printf("web cmd is %s\n",cmd);
       // Setup our pipe for reading and execute our command.
       pf = popen(cmd,"r");
 
@@ -74,7 +74,7 @@ void work_on_idx_mobile(int idx, char* dir)
       FILE *pf;
       snprintf(cmd, 2056, "find %s%d_mobile -type f -name \"*.png\"", dir, idx);
 
-      //printf("cmd is %s\n",cmd);
+      printf("mobile cmd is %s\n",cmd);
       // Setup our pipe for reading and execute our command.
       pf = popen(cmd,"r");
 
