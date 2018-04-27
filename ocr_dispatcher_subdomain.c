@@ -66,6 +66,37 @@ void work_on_idx_web(int idx, char* dir)
 }
 
 
+///home/ketian/tmp/  idx=118
+void work_on_idx_mobile(int idx, char* dir)
+{
+      char cmd[2056];
+      char data[DATA_SIZE];
+      FILE *pf;
+      snprintf(cmd, 2056, "find %s%d_mobile -type f -name \"*.png\"", dir, idx);
+
+      //printf("cmd is %s\n",cmd);
+      // Setup our pipe for reading and execute our command.
+      pf = popen(cmd,"r");
+
+      if(!pf){
+         fprintf(stderr, "Could not open pipe for output.\n");
+         return;
+      }
+
+      // Grab data from process execution
+      while (fgets(data, sizeof data, pf) != NULL)
+      {
+            size_t len = strlen(data);
+            if (len > 0 && data[len-1] == '\n') {
+                  data[--len] = '\0';
+            }
+            //printf("fuck %s",data);
+            work_tesseract(data);
+      }
+
+      return ;
+}
+
 //sample command as:
 //./a.out 1 4
 int main(int argc, char* argv[])
@@ -87,9 +118,11 @@ int main(int argc, char* argv[])
         //usage();
         exit(-1);
     }
-    int start_val = atoi(argv[1]);
-    int stop_val = atoi(argv[2]);
-    char* dir = argv[3];
+
+    char* dir = argv[1];
+
+    int start_val = 0;
+    int stop_val = 80;
 
     int shmid = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666);
     if (shmid<0)
@@ -117,6 +150,7 @@ retry:
         if (cpid==0)
         {
             work_on_idx_web(i, dir);
+            work_on_idx_mobile(i, dir);
             while(!__sync_bool_compare_and_swap(counter,*counter, (*counter)-1));
             printf("[SPONGEBOB]Done %d counter=%d\n", i, *counter);
             shmdt(counter);
