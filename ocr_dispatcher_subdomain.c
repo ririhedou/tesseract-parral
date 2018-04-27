@@ -35,12 +35,12 @@ void work_tesseract(char* img)
 }
 
 // /home/ketian/tmp/  idx=118
-void work_on_idx_mobile(int idx, char* dir)
+void work_on_idx_web(int idx, char* dir)
 {
       char cmd[2056];
       char data[DATA_SIZE];
       FILE *pf;
-      snprintf(cmd, 2056, "find %s%d_mobile -type f -name \"*.png\"", dir, idx);
+      snprintf(cmd, 2056, "find %s%d -type f -name \"*.png\"", dir, idx);
 
       //printf("cmd is %s\n",cmd);
       // Setup our pipe for reading and execute our command.
@@ -71,8 +71,7 @@ void work_on_idx_mobile(int idx, char* dir)
 int main(int argc, char* argv[])
 {
 
-    //char img[] = "
-      /home/ketian/tmp/40_mobile/your-answers-here.net..screen.44.png";
+    //char img[] = "/home/ketian/tmp/40_mobile/your-answers-here.net..screen.44.png";
     if (argc < 2) {
         /* no argument */
         /* give error message and exit */
@@ -117,7 +116,7 @@ retry:
         rcnt++;
         if (cpid==0)
         {
-            work_on_idx_mobile(i, dir);
+            work_on_idx_web(i, dir);
             while(!__sync_bool_compare_and_swap(counter,*counter, (*counter)-1));
             printf("[SPONGEBOB]Done %d counter=%d\n", i, *counter);
             shmdt(counter);
